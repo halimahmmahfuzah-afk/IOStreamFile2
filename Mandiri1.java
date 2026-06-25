@@ -1,18 +1,32 @@
-package bagian1.berkas;
+package bagian2.bacatulis;
 
-import java.io.File;
+import java.io.*;
 
 public class Mandiri1 {
     public static void main(String[] args) {
 
-        File berkas = new File("laporan.txt");
+        try (PrintWriter penulis = new PrintWriter(new FileWriter("hari.txt"))) {
 
-        if (berkas.exists()) {
-            System.out.println("Berkas ada.");
-            System.out.println("Ukuran berkas: " + berkas.length() + " byte");
-        } else {
-            System.out.println("Berkas tidak ada.");
+            penulis.println("Senin");
+            penulis.println("Selasa");
+            penulis.println("Rabu");
+            penulis.println("Kamis");
+            penulis.println("Jumat");
+
+        } catch (IOException e) {
+            System.out.println("Gagal menulis: " + e.getMessage());
         }
 
+        try (BufferedReader pembaca = new BufferedReader(new FileReader("hari.txt"))) {
+
+            String baris;
+
+            while ((baris = pembaca.readLine()) != null) {
+                System.out.println(baris);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Gagal membaca: " + e.getMessage());
+        }
     }
 }

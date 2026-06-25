@@ -1,20 +1,22 @@
-package bagian1.berkas;
+package bagian2.bacatulis;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class Mandiri3 {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-        File berkas = new File("sementara.txt");
+        int jumlahBaris = 0;
 
-        berkas.createNewFile();
+        try (BufferedReader pembaca = new BufferedReader(new FileReader("hari.txt"))) {
 
-        System.out.println("Sebelum dihapus: " + berkas.exists());
+            while (pembaca.readLine() != null) {
+                jumlahBaris++;
+            }
 
-        berkas.delete();
+            System.out.println("Jumlah baris: " + jumlahBaris);
 
-        System.out.println("Sesudah dihapus: " + berkas.exists());
-
+        } catch (IOException e) {
+            System.out.println("Gagal membaca: " + e.getMessage());
+        }
     }
 }
